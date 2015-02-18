@@ -14,27 +14,16 @@ namespace PM_News
         static void Main(string[] args)
         {   
            Console.WriteLine("Hello, Process Starting");
-           var myProgramPerams = new myProgramPerams(); //todo: get file perams from folder to pass object to import
+           var ProgramPerams = new myProgramPerams(); //todo: get file perams from folder to pass object to import
            Console.WriteLine("Downloading and Importing Data");
-           var import = new ImportData(myProgramPerams);
-           var alterData = new AlterData(import.ImportedData, myProgramPerams.RemovalStringsColumn,
-                                          myProgramPerams.RemovalStringsColumn, myProgramPerams.DateColumn, 
-                                          myProgramPerams.DupsColumn);
+           var import = new ImportData(ProgramPerams);
+           var alterData = new AlterData(import.ImportedData, ProgramPerams.RemovalStringsColumn,
+                                          ProgramPerams.RemovalStringsColumn, ProgramPerams.DateColumn,
+                                          ProgramPerams.DupsColumn);
            Console.WriteLine("creating new csv file for SharePoint List");
-           var outputData = new OutputData(alterData.DataImport, myProgramPerams.BaseDir + "ExportedData.csv");
-         
+           var outputData = new OutputData(alterData.DataImport, ProgramPerams);
+           Directory.Delete(ProgramPerams.DestDir, true);
         }
     }       
-   
-    class RunAccessMacro
-    {
-        private string loc { get; set; }
-        public RunAccessMacro(string Loc)
-        {
-            loc = Loc;
-        }
-    }
-    
-
-   
+      
 }

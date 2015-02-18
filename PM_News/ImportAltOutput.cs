@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.IO.Compression;
 using System.IO;
-using Excel = Microsoft.Office.Interop.Excel;
+
 
 namespace PM_News
 {
@@ -22,7 +22,20 @@ namespace PM_News
             downloadFile();
             Console.WriteLine("pulling downloaded csv into memory");
             GetDataTableFromCsv();
+
         }
+
+        private void downloadFile()
+        {
+            if (File.Exists(perams.DestZipDir)) { System.IO.File.Delete(perams.DestZipDir); }
+            var xlMac1 = new RunExcelMacro(perams.WbLoc, perams.MacrDownloadName, 2,
+                                                     perams.MacrDownloadArg1, perams.MacrDownloadArg2);
+            unzipFile();
+            var xlMac2 = new RunExcelMacro(perams.WbLoc, perams.MacrCsvParserName, 3, perams.MacrCsvParserArg1,
+                                                perams.MacrCsvParserArg2, perams.MacrCsvParserArg3);
+
+        }
+
         private void unzipFile()
         {
             //something changed
@@ -61,53 +74,9 @@ namespace PM_News
                 dataTable.Rows.Add(adjustedFields);
                 newLine = sr.ReadLine();
             }
-
             ImportedData = dataTable;
         }
-        private void downloadFile()
-        {
-
-            //todo: add excel handler
-            if (File.Exists(perams.DestZipDir)) { System.IO.File.Delete(perams.DestZipDir); }
-            Excel.Application xlApp = new Excel.Application();
-            Excel.Workbook xlWB;
-            xlApp.Visible = false;
-            xlWB = xlApp.Workbooks.Open(perams.WbLoc);
-            try
-            {
-                xlApp.Run(perams.MacrDownloadName, perams.MacrDownloadArg1, perams.MacrDownloadArg2);
-                unzipFile();
-                xlApp.Run(perams.MacrCsvParserName, perams.MacrCsvParserArg1, perams.MacrCsvParserArg2, perams.MacrCsvParserArg3);
-                xlWB.Close(false);
-                xlApp.Quit();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                releaseObject(xlApp);
-                releaseObject(xlWB);
-            }
-        }
-        private void releaseObject(object obj)
-        {
-            try
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-                obj = null;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                obj = null;
-            }
-            finally
-            {
-                GC.Collect();
-            }
-        }
+      
     }
     class AlterData
     {
@@ -137,8 +106,6 @@ namespace PM_News
             Console.WriteLine("adding sharepoint columns");
             addColumns();
         }
-       
-
         private void deleteDuplicatesFromDataTable(string duplicatesColumn) 
         {
             //removes duplicates from a sorted list
@@ -156,7 +123,6 @@ namespace PM_News
                  }
              }
         }
-
         private void SortDataTable(string sortingColumn)
         {
             DataView dvDataImport = DataImport.DefaultView;
@@ -198,7 +164,6 @@ namespace PM_News
 
         private void addColumns()
         {
-
             //adds columns to match sharepoint
             DataImport.Columns.Add("ID", typeof(int)).SetOrdinal(0);
             DataImport.Columns.Add("Entity", typeof(string)).SetOrdinal(1);
@@ -207,29 +172,27 @@ namespace PM_News
             DataImport.Columns.Add("Transaction Type", typeof(string)).SetOrdinal(20);
             DataImport.Columns.Add("Content Type", typeof(string)).SetOrdinal(21);
             DataImport.Columns.Add("Attachments", typeof(string)).SetOrdinal(22);
-
         }
-
     }
     class OutputData
     {
         private DataTable DataExport { get; set; }
-        private string OutputDirectory { get; set; }
+        private myProgramPerams perams { get; set; }
 
-        public OutputData(DataTable dt, string outputDirectory)
-        {   //custom constructor
-
-            DataExport = dt;
-            OutputDirectory = outputDirectory;
+        public OutputData(DataTable dt, myProgramPerams p)
+        {
+            perams = p;
+            DataExport = dt;            
             Console.WriteLine("creating the csv file");
             createCsvFile();
             Console.WriteLine("uploading the file into sharepoint via access");
+            uploadFileToSharePoint();
         }
 
         private void createCsvFile()
         {
             //pushes data table to csv file
-            if (File.Exists(OutputDirectory)) { File.Delete(OutputDirectory); }
+            if (File.Exists(perams.ExportLocation)) { File.Delete(perams.ExportLocation); }
             var csv = new StringBuilder();
             string headerString = "";
             for (int i = 0; i < DataExport.Columns.Count; i++)
@@ -247,17 +210,16 @@ namespace PM_News
                     csv.Append(j == DataExport.Columns.Count - 1 ? "\n" : "|");
                 }
             }
-
-            File.AppendAllText(OutputDirectory, csv.ToString());
+            File.AppendAllText(perams.ExportLocation, csv.ToString());
         }
 
         private void uploadFileToSharePoint()
         {
+            RunExcelMacro xlMac3 = new RunExcelMacro(perams.WbLoc, perams.MacrImportDataName);
+            RunAccessMacro acMac1 = new RunAccessMacro(perams.AccessLocation, perams.MacrAccessImport);
 
         }
+
     }        
-                       
-
-
-    
+      
 }

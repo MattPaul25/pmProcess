@@ -41,12 +41,17 @@ namespace PM_News
             MacrCsvParserArg2 = Name;
             MacrCsvParserArg3 = ".csv";
 
+            ExportLocation = BaseDir + "ExportedData.csv";
+            MacrImportDataName = "PrepareDataForUpload";
+            AccessLocation = BaseDir + "ThingFinderUpload.accdb";
+            MacrAccessImport = "ImportMacro";
+
             DupsColumn = "DistDoc Accession Number";
             DateColumn = "DistDoc Publication Date";
 
         }
         public string BaseUrl { get; protected set; }
-        public string BaseDir { get; set; }
+        public string BaseDir { get; protected set; }
         public string Name { get; protected set; }
         public string ZipDate { get; protected set; }
         public string Ext { get; protected set; }
@@ -72,8 +77,13 @@ namespace PM_News
         public string FullTxtPath { get; protected set; }
         //public string[] macrArgs {get; }
 
-        public string RemovalStrings { get; set; }
-        public string RemovalStringsColumn { get; set; }
+        public string RemovalStrings { get; protected set; }
+        public string RemovalStringsColumn { get; protected set; }
 
+        public string ExportLocation { get; protected set; }
+        public string MacrImportDataName { get; protected set; }
+
+        public string AccessLocation { get; protected set; }
+        public string MacrAccessImport { get; protected set; }
     }
 }

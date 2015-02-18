@@ -5,3 +5,7 @@ c:\users\fargusonm\documents\visual studio 2013\Projects\PM_News\PM_News\bin\Deb
 c:\users\fargusonm\documents\visual studio 2013\Projects\PM_News\PM_News\obj\Debug\PM_News.exe
 c:\users\fargusonm\documents\visual studio 2013\Projects\PM_News\PM_News\obj\Debug\PM_News.pdb
 C:\Users\fargusonm\documents\visual studio 2013\Projects\PM_News\PM_News\obj\Debug\PM_News.csproj.ResolveComReference.cache
+C:\Users\fargusonm\documents\visual studio 2013\Projects\PM_News\PM_News\bin\Debug\PM_News.exe.manifest
+C:\Users\fargusonm\documents\visual studio 2013\Projects\PM_News\PM_News\bin\Debug\PM_News.application
+C:\Users\fargusonm\documents\visual studio 2013\Projects\PM_News\PM_News\obj\Debug\PM_News.exe.manifest
+C:\Users\fargusonm\documents\visual studio 2013\Projects\PM_News\PM_News\obj\Debug\PM_News.application
