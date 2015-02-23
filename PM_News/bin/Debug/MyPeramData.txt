@@ -1,0 +1,7 @@
+BaseDir|l
+ExcelFile|l
+MacrDownloadName|l
+MacrCsvParserName|l
+MacrImportDataName|l
+AccessName|l
+MacrAccessImport|l

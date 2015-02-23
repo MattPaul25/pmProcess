@@ -44,7 +44,6 @@ namespace PM_News
             //extract zipfile and then delete it
             ZipFile.ExtractToDirectory(perams.DestZipDir, perams.DestDir);
             System.IO.File.Delete(perams.DestZipDir);
-
         }
         private void GetDataTableFromCsv()
         {

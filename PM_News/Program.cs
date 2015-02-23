@@ -13,16 +13,18 @@ namespace PM_News
     {
         static void Main(string[] args)
         {   
-           Console.WriteLine("Hello, Process Starting");
-           var ProgramPerams = new myProgramPerams(); //todo: get file perams from folder to pass object to import
-           Console.WriteLine("Downloading and Importing Data");
-           var import = new ImportData(ProgramPerams);
-           var alterData = new AlterData(import.ImportedData, ProgramPerams.RemovalStringsColumn,
-                                          ProgramPerams.RemovalStringsColumn, ProgramPerams.DateColumn,
-                                          ProgramPerams.DupsColumn);
-           Console.WriteLine("creating new csv file for SharePoint List");
-           var outputData = new OutputData(alterData.DataImport, ProgramPerams);
-           Directory.Delete(ProgramPerams.DestDir, true);
+           Console.WriteLine("Hello...");
+           var setUp = new SetUp();
+           Console.WriteLine("process starting");
+           //var ProgramPerams = new myProgramPerams(); //todo: get file perams from folder to pass object to import
+           //Console.WriteLine("Downloading and Importing Data");
+           //var import = new ImportData(ProgramPerams);
+           //var alterData = new AlterData(import.ImportedData, ProgramPerams.RemovalStringsColumn,
+           //                               ProgramPerams.RemovalStringsColumn, ProgramPerams.DateColumn,
+           //                               ProgramPerams.DupsColumn);
+           //Console.WriteLine("creating new csv file for SharePoint List");
+           //var outputData = new OutputData(alterData.DataImport, ProgramPerams);
+           //Directory.Delete(ProgramPerams.DestDir, true);
         }
     }       
       
