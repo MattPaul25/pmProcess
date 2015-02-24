@@ -14,7 +14,7 @@ namespace PM_News
 
         public SetUp()
         {
-            myFile = "myPeramData.txt";
+            myFile = "MyPeramData.txt";
             fileExists = File.Exists(myFile);
             
             if (fileExists)
@@ -39,11 +39,13 @@ namespace PM_News
             Console.ReadLine();
 
             string[] myTextValues = new string[Questions.Length];
-            for (int i = 0; i < Questions.Length; i++)
+            if (fileExists)
             {
-               myTextValues[i] = TextUtils.getParams(VariableNames[i], myFile);
+                for (int i = 0; i < Questions.Length; i++)
+                {
+                    myTextValues[i] = TextUtils.getParams(VariableNames[i], myFile);
+                }
             }
-
             StreamWriter sw = new StreamWriter(myFile);
             for (int i = 0; i < Questions.Length; i++)
             {
