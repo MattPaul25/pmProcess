@@ -1,7 +1,10 @@
-BaseDir|l
-ExcelFile|l
-MacrDownloadName|l
-MacrCsvParserName|l
-MacrImportDataName|l
-AccessName|l
-MacrAccessImport|l
+BaseUrl|http://ats.factiva.net/fhpnas/ats/Reports/RnC/PM/
+BaseDir|V:/Research/Shared/BarcelonaProjects/PM_News/
+ExcelFile|SupportMacro.xlsm
+MacrDownloadName|DownLoadRoutine
+MacrCsvParserName|RunCSVParser
+MacrImportDataName|PrepareDataForUpload
+RemovalStringsColumn|TF Label2 (Extraction Text)
+RemovalStrings|rating|buy back|buyback|customers|cars|products|debt|reserves|from hold|brokers|broker|argued|amended|recommends
+AccessName|ThingFinderUpload.accdb
+MacrAccessImport|ImportMacro

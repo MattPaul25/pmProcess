@@ -81,7 +81,7 @@ namespace PM_News
         {           
             Excel.Application xlApp = new Excel.Application();
             Excel.Workbook xlWB;
-            xlApp.Visible = true;
+            xlApp.Visible = false;
             xlWB = xlApp.Workbooks.Open(fileName);
             try
             {

@@ -27,6 +27,8 @@ namespace PM_News
 
         private void downloadFile()
         {
+            //handles downloading and fixing excel file to import
+
             if (File.Exists(perams.DestZipDir)) { System.IO.File.Delete(perams.DestZipDir); }
             var xlMac1 = new RunExcelMacro(perams.WbLoc, perams.MacrDownloadName, 2,
                                                      perams.MacrDownloadArg1, perams.MacrDownloadArg2);
@@ -74,6 +76,8 @@ namespace PM_News
                 newLine = sr.ReadLine();
             }
             ImportedData = dataTable;
+            //checking
+            sr.Dispose();
         }
       
     }
@@ -87,8 +91,8 @@ namespace PM_News
         {
             Console.WriteLine("altering data");
             DataImport = dt;
-            string dateToday = textUtils.getTodayFormatted(0, "M/d/yyyy");
-            string dateYesterday = textUtils.getTodayFormatted(-1, "M/d/yyyy");
+            string dateToday = TextUtils.getTodayFormatted(0, "M/d/yyyy");
+            string dateYesterday = TextUtils.getTodayFormatted(-1, "M/d/yyyy");
 
             /* because i want to keep both today and yesterday i use concatenate the dates which will check if
              one item exist within item*/
@@ -145,11 +149,11 @@ namespace PM_News
                     bool isStringThere;
                     if (isReversableLookUp)
                     {
-                        isStringThere = textUtils.CountStrings(criteriaString, currentString) > 0;
+                        isStringThere = TextUtils.CountStrings(criteriaString, currentString) > 0;
                     }
                     else
                     {
-                        isStringThere = textUtils.CountStrings(currentString, criteriaString) > 0;
+                        isStringThere = TextUtils.CountStrings(currentString, criteriaString) > 0;
                     }
                     bool isDeletable = ((isKeepable & !isStringThere) == true) || ((!isKeepable & isStringThere) == true);
                     if (isDeletable) 
