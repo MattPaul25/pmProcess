@@ -41,6 +41,7 @@ namespace PM_News
             string[] myTextValues = new string[Questions.Length];
             if (fileExists)
             {
+                //gets current values in text file and dumps in string array
                 for (int i = 0; i < Questions.Length; i++)
                 {
                     myTextValues[i] = TextUtils.getParams(VariableNames[i], myFile);
